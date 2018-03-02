@@ -1,0 +1,50 @@
+DROP TABLE IF EXISTS `fangtianxia_old`;
+CREATE TABLE `fangtianxia_old` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `zone` varchar(128) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `layout` varchar(128) DEFAULT NULL,
+  `floor` varchar(128) DEFAULT NULL,
+  `orientations` varchar(128) DEFAULT NULL,
+  `buildTime` varchar(128) DEFAULT NULL,
+  `community` varchar(128) DEFAULT NULL,
+  `addr` varchar(128) DEFAULT NULL,
+  `area` varchar(128) DEFAULT NULL,
+  `sumPrice` varchar(128) DEFAULT NULL,
+  `avaPrice` varchar(128) DEFAULT NULL,
+  `firstPay` varchar(128) DEFAULT NULL,
+  `monthPay` varchar(128) DEFAULT NULL,
+  `floorNum` varchar(128) DEFAULT NULL,
+  `decoration` varchar(128) DEFAULT NULL,
+  `school` varchar(128) DEFAULT NULL,
+  `elevator` varchar(128) DEFAULT NULL,
+  `buildOwn` varchar(128) DEFAULT NULL,
+  `houseType` varchar(128) DEFAULT NULL,
+  `buildStructure` varchar(128) DEFAULT NULL,
+  `buildType` varchar(128) DEFAULT NULL,
+  `sellTime` varchar(128) DEFAULT NULL,
+  `tags` varchar(128) DEFAULT NULL,
+  `updateTime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `fangtianxia_new`;
+CREATE TABLE `fangtianxia_new` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `propertyType` varchar(64) DEFAULT NULL,
+  `decoration` varchar(64) DEFAULT NULL,
+  `buildingType` varchar(64) DEFAULT NULL,
+  `propertyRight` varchar(64) DEFAULT NULL,
+  `developmentCo` varchar(64) DEFAULT NULL,
+  `address` varchar(128) DEFAULT NULL,
+  `households` varchar(32) DEFAULT NULL,
+  `saleTime` varchar(64) DEFAULT NULL,
+  `deliveryTime` varchar(64) DEFAULT NULL,
+  `city` varchar(32) DEFAULT NULL,
+  `star` float DEFAULT NULL,
+  `comment` int(6) DEFAULT NULL,
+  `propertyCo` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

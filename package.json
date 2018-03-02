@@ -1,0 +1,34 @@
+{
+  "name": "house_crawler",
+  "version": "1.0.0",
+  "description": "a auto commit tool for git with node",
+  "main": "index.js",
+  "scripts": {
+    "git": "node index.js",
+    "task": "node task.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zj-john/autoCommit.git"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "auto",
+    "crawler"
+  ],
+  "author": "zj-john",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zj-john/autoCommit/issues"
+  },
+  "homepage": "https://github.com/zj-john/autoCommit#readme",
+  "dependencies": {
+    "crawler": "^1.1.2",
+    "lodash": "^4.17.5",
+    "moment": "^2.18.1",
+    "mysql": "^2.15.0",
+    "ua-string": "^1.1.0",
+    "xlsx": "^0.12.2"
+  }
+}
