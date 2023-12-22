@@ -1,0 +1,9 @@
+{
+  "name": "xhs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "crawler": "^1.4.0"
+  }
+}

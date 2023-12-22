@@ -2,7 +2,6 @@ const Crawler = require('crawler')
 const fs = require('fs')
 
 const host = 'https://www.xiaohongshu.com'
-const id = '6352700c00000000140376a8'
 
 let crawledUrls = new Set()
 
@@ -11,7 +10,7 @@ fs.readFile('crawled_urls.txt', 'utf8', (err, data) => {
 	if (err) {
 		console.log('No crawled urls found')
 	} else {
-		crawledUrls = new Set(data.split('\n'))
+		crawledUrls = new Set(data.split('\n').map(i=>i.replace('\\r','')))
 	}
 })
 
@@ -118,8 +117,8 @@ fs.readFile('url.json', 'utf8', (err, data) => {
 		return { uri: `${host}${item.link}`, id: id }
 	})
 	const filterUrls = urls.filter((item) => !crawledUrls.has(item.uri))
-	// console.log(urls.length, filterUrls.length)
-	// console.log(filterUrls[0])
+	console.log(urls.length, filterUrls.length)
+	// console.log(crawledUrls,crawledUrls.has(urls[0].uri))
 	c.queue(filterUrls)
 })
 
