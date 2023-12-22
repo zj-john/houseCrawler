@@ -2,6 +2,7 @@ const Crawler = require('crawler')
 const fs = require('fs')
 
 const host = 'https://www.xiaohongshu.com'
+const dirName = 'caizhuang'
 
 let crawledUrls = new Set()
 
@@ -10,7 +11,7 @@ fs.readFile('crawled_urls.txt', 'utf8', (err, data) => {
 	if (err) {
 		console.log('No crawled urls found')
 	} else {
-		crawledUrls = new Set(data.split('\n').map(i=>i.replace('\\r','')))
+		crawledUrls = new Set(data.split('\n').map((i) => i.replace('\\r', '')))
 	}
 })
 
@@ -52,7 +53,15 @@ const getContent = ($, postId) => {
 
 const c = new Crawler({
 	maxConnections: 1,
-	rateLimit: 15000, // gap 15 sec
+	// rateLimit: 15000, // gap 15 sec
+	preRequest: (options, done) => {
+		// 生成8到15秒之间的随机延迟时间
+		const delay = Math.floor(Math.random() * (15000 - 8000 + 1) + 8000)
+		// 延迟一段时间后执行done回调函数
+		setTimeout(() => {
+			done()
+		}, delay)
+	},
 	limiter: host,
 	timeout: 45000,
 	userAgent:
@@ -60,9 +69,13 @@ const c = new Crawler({
 	callback: function (error, res, done) {
 		if (error) {
 			console.log(error)
-			fs.appendFile('error_urls.txt', res.options.uri + '\n', function (err) {
-				if (err) throw err
-			})
+			fs.appendFile(
+				`./${dirName}/error_urls.txt`,
+				res.options.uri + '\n',
+				function (err) {
+					if (err) throw err
+				}
+			)
 		} else {
 			const $ = res.$
 			const title = $('meta[name="og:title"]').attr('content')
@@ -83,7 +96,7 @@ const c = new Crawler({
 				tags,
 			}
 			fs.appendFile(
-				'results.json',
+				`./${dirName}/results.json`,
 				JSON.stringify(result) + ',\n',
 				function (err) {
 					if (err) throw err
@@ -110,7 +123,7 @@ c.on('request', function (options) {
 	console.log(`${now}[request]${options.uri}`)
 })
 
-fs.readFile('url.json', 'utf8', (err, data) => {
+fs.readFile(`./${dirName}/url.json`, 'utf8', (err, data) => {
 	if (err) throw err
 	const urls = JSON.parse(data).map((item) => {
 		const id = item.link.split('/')[2]
@@ -122,4 +135,24 @@ fs.readFile('url.json', 'utf8', (err, data) => {
 	c.queue(filterUrls)
 })
 
-// c.queue(`${host}/explore/${id}`)
+// 假设你的爬虫函数是async函数，可以使用await
+async function crawlData() {
+	let count = 0 // 初始化计数器
+	const n = 10 // 设定每n条数据后暂停
+	const pauseDuration = 120000 // 暂停时间2分钟（单位毫秒）
+
+	while (true) {
+		// 或者某个条件，取决于你何时想停止爬虫
+		// ... 这里是你的爬取逻辑 ...
+
+		// 假设每次循环爬取一条数据
+		count++ // 爬取成功后，计数器加1
+
+		if (count >= n) {
+			// 如果达到了设定的阈值
+			console.log(`Crawled ${n} items, pausing for 2 minutes...`)
+			await new Promise((resolve) => setTimeout(resolve, pauseDuration)) // 暂停2分钟
+			count = 0 // 重置计数器
+		}
+	}
+}
