@@ -2,7 +2,7 @@ const Crawler = require('crawler')
 const fs = require('fs')
 
 const host = 'https://www.xiaohongshu.com'
-const dirName = 'chuanda'
+const dirName = '2024-01'
 
 let crawledUrls = new Set()
 
